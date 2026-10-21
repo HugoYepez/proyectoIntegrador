@@ -1,0 +1,48 @@
+\documentclass[paper=a4,pagesize=auto,12pt]{scrreprt}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\usepackage{csquotes}
+\usepackage[section]{placeins}
+\usepackage[backend=biber,style=ieee]{biblatex}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\addbibresource{references.bib}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+
+\pagestyle{headings}
+\frenchspacing 
+% http://www.tex.ac.uk/FAQ-floats.html
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+% Definición robusta para evitar el error de "extra }" en bibitem
+\protected\def\citeproctext#1{#1}
+
+% El entorno CSLReferences (se mantiene igual)
+\newenvironment{CSLReferences}[2]
+  {\list{}{%
+   \setlength{\itemindent}{0pt}%
+   \setlength{\leftmargin}{0pt}%
+   \setlength{\parsep}{0pt}%
+   \setlength{\itemsep}{#1\baselineskip}%
+   \setlength{\parskip}{#2pt}%
+  }}
+  {\endlist}
+  
+\begin{document}
+\pagenumbering{roman}
+
+\input{front}
+
+\tableofcontents
+
+$body$
+
+\end{document}

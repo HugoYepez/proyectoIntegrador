@@ -1,0 +1,148 @@
+---
+title: "Untitled"
+date: "2026-07-03"
+Universidad: Universidad de Las Américas
+bibliography: bibliografia.bib
+csl: apa-es.csl
+output:
+  pdf_document:
+    template: Main.tex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\newpage
+
+# Introducción y Contextualización del problema
+
+En la actualidad, el mercado inmobiliario (particularmente en zonas de alta plusvalía y expansión como el Distrito Metropolitano de Quito y sus valles) se caracteriza por una alta volatilidad financiera y una preocupante asimetría de información. Tanto los compradores independientes como los agentes inmobiliarios nóveles carecen de herramientas accesibles y científicas para determinar si el precio de venta de un inmueble se ajusta verdaderamente a la realidad del mercado o si responde a procesos de especulación comercial.
+
+El problema real radica en que la tasación tradicional de viviendas depende de peritajes manuales costosos y lentos, o bien de corazonadas empíricas basadas únicamente en el metraje cuadrado, ignorando variables críticas concurrentes como el tipo de propiedad, el sector geográfico, el número de dormitorios, la cantidad de baños y el estado físico de la infraestructura. Esta falta de precisión genera pérdidas económicas significativas y ralentiza los procesos de toma de decisiones financieras en el sector habitacional.
+
+# 2. Justificación de la solución tecnológica
+
+Para resolver esta problemática de manera óptima y escalable, se plantea el diseño y desarrollo de una aplicación de escritorio con interfaz gráfica (GUI) fundamentada en el paradigma de Programación Orientada a Objetos (POO).
+
+La solución se desmarca de los sistemas de gestión tradicionales (como los CRUDs genéricos de inventario o facturación, explícitamente prohibidos en la consigna) mediante la integración de un motor de analítica y analítica predictiva. El sistema procesa un flujo masivo de datos históricos del mercado extraído desde archivos planos estructurados (.csv) y, utilizando un modelo de regresión lineal multivariable con coeficientes dinámicos, calcula de forma automatizada e inmediata la estimación del valor real en el mercado (tasación inteligente). De igual manera, el software actúa de forma proactiva al sugerir ofertas inmobiliarias reales que se ajusten con precisión matemática al rango presupuestario estimado del cliente.
+
+# 3. Especificación de requirimeintos (RF)
+
+Para delimitar el alcance del software y garantizar la arquitectura en capas, se han definido los siguientes requerimientos del sistema:
+
+- RF-01: Carga y Sincronización Robustecida de Datos: El sistema debe ser capaz de abrir, parsear y cargar en memoria dinámica una base de datos histórica desde un archivo externo datos.csv, implementando mecanismos de tolerancia a fallos (limpieza de comillas residuales, omisión de cabeceras y control de excepciones frente a datos corruptos o archivos inexistentes).
+
+- RF-02: Escalamiento Monetario Comercial: Durante la lectura del origen de datos, el sistema debe normalizar y reescalar los valores financieros de las propiedades multiplicando los registros planos abreviados por el factor comercial ($1,000.0$) para asegurar la integridad de las consultas en dólares estadounidenses americanos (USD).
+
+- RF-03: Interfaz Gráfica para Entrada Multivariable: La aplicación debe proveer un panel de control interactivo (GUI) compuesto por selectores precisos (JComboBox, JSpinner y campos validados de texto) para recolectar simultáneamente las necesidades del cliente (Metros cuadrados, Tipo de inmueble, Dormitorios y Baños).
+
+- RF-04: Motor de Tasación Predictiva (IA): El sistema debe evaluar de forma aislada e instantánea la ecuación matemática de regresión lineal múltiple en base a los coeficientes asignados al modelo, inyectando variaciones porcentuales (lógica POO) de acuerdo con el tipo de inmueble ingresado (v.g., penalización a departamentos por densidad y bonificación a quintas por plusvalía).
+
+- RF-05: Recomendación Proactiva por Margen Comercial: Tras calcular el precio estimado, el software debe filtrar automáticamente la colección completa de propiedades en memoria y desplegar en una tabla secundaria únicamente aquellos inmuebles físicos que se encuentren dentro de un rango comercial óptimo del $\pm 15\%$ respecto al valor predictivo.
+
+# 4. Roles del equipo y trabajo colaborativo
+
+Para garantizar el cumplimiento de los objetivos y un desarrollo eficiente bajo la rúbrica de evaluación, el equipo ha interactuado de forma proactiva y coordinada, distribuyendo las tareas según las habilidades individuales de sus miembros. La estrategia metodológica se fundamentó en la división de responsabilidades siguiendo una arquitectura de software en capas, minimizando el acoplamiento y maximizando la cohesión del código.
+
+## 4.1. Matriz de Roles y Asignación de Responsabilidades
+
+En primer lugar, Hugo Andrés Yépez Pinargote asume el rol de Líder de Proyecto, encargándose de la coordinación general del equipo, la planificación estratégica de los sprints de desarrollo y la supervisión del cronograma de actividades. Bajo esta misma línea directiva, es el responsable exclusivo de la gestión del control de versiones mediante Git y del aseguramiento de la integración final de los diferentes componentes de software. En el plano técnico, se desempeña como Desarrollador Backend dentro de la capa de negocio y de modelo. En esta función, codificó las entidades puras denominadas Propiedad y PropiedadesFiltro bajo un esquema de encapsulamiento estricto, estructuró la sobrecarga de constructores para dotar de flexibilidad al sistema y diseñó el parseo robusto del archivo CSV histórico mediante expresiones regulares, consolidando finalmente el motor algorítmico de la clase RegresionLineal.
+
+Por otro lado, Romina Gómez ejerce las funciones correspondientes al área de Análisis y Diseño del sistema. Su labor inicial consistió en la identificación y descripción detallada del problema real en el mercado inmobiliario, seguida por la elicitación de los requerimientos funcionales y la estructuración del modelo arquitectónico global mediante el diagrama de clases UML. Asimismo, lidera de manera integral el Desarrollo Frontend dentro de la capa de interfaz gráfica de usuario. Desde esta responsabilidad, se encargó de la construcción del entorno visual interactivo utilizando la biblioteca Swing de Java, programando la estética y distribución de la Ventana Principal, aplicando controles y validaciones estrictas en los campos ingresados por el usuario, configurando las tablas de datos y enlazando los escuchas de eventos de tipo ActionListener para comunicar la pantalla con el controlador.
+
+Finalmente, el área de Aseguramiento de Calidad se configuró como un esfuerzo conjunto ejecutado de forma colaborativa por Romina Gómez y Hugo Andrés Yépez Pinargote. Ambos integrantes planificaron y ejecutaron de manera coordinada los casos de prueba funcionales en todo el sistema. Su labor compartida se enfocó en verificar el correcto control de excepciones numéricas ante la simulación de datos corruptos o entradas inválidas en producción, concluyendo con la depuración integral del software en entornos controlados para certificar su robustez antes de la entrega final.
+
+# 5. Arquitectura del software y modelado de la solución
+
+Para garantizar un acoplamiento débil y una alta cohesión (principios clave de la ingeniería de software), el sistema se ha estructurado bajo un patrón arquitectónico en tres capas (Paquetes). De acuerdo con @pressman2020, la modularización de un sistema bajo un enfoque de descomposición funcional permite mitigar la complejidad algorítmica y potenciar la mantenibilidad del código fuente a lo largo del ciclo de vida del software. A continuación, se detalla la especificación técnica de cada clase para la posterior construcción del Diagrama de Clases UML basado en los estándares internacionales de modelado de software @omg2017.
+
+## 5.1 Especificación de Clases y Encapsulamiento
+
+### Paquete `modelo`
+
+La clase `Propiedad` representa la entidad fundamental de un inmueble dentro del mercado inmobiliario bajo análisis. Su propósito principal es modelar las características físicas y comerciales del objeto real asegurando el resguardo absoluto de la información mediante un esquema de encapsulamiento estricto. Tal como señalan @wu2021, la ocultación de información a través del control de visibilidad previene la manipulación arbitraria de estados internos desde componentes externos, reforzando la integridad estructural de los objetos. Sus atributos se declaran con visibilidad privada, abarcando las cadenas de texto tipoPropiedad, sector, referencia y estadoInspeccion, las variables decimales de doble precisión totalConstruido, precio y variableAdicional, así como los valores enteros dormitorios, banos y antiguedad. En su sección de métodos públicos, expone un constructor vacío por defecto y dos constructores parametrizados sobrecargados; el primero gestiona una estructura estándar de 9 parámetros correspondientes al flujo base del archivo CSV, mientras que el segundo asimila 10 parámetros por motivos de retrocompatibilidad y escalabilidad del registro. El acceso y modificación segura de los estados del objeto se realiza de forma exclusiva a través de métodos de acceso públicos de tipo getter y setter implementados para cada uno de sus componentes internos.
+
+La clase `PropiedadesFiltro` se diseña como una estructura de abstracción de datos pura, cuyo fin es empaquetar de forma cohesiva los criterios específicos de búsqueda e inferencia seleccionados por el usuario desde la pantalla principal. Este diseño evita el paso innecesario de parámetros primitivos sueltos a lo largo de las capas funcionales, alineándose con las recomendaciones de @fowler2018 sobre el diseño de estructuras de datos limpias y el uso de Data Transfer Objects (DTO) para optimizar la cohesión del diseño modular. El objeto encapsula bajo un acceso estrictamente privado las variables primitivas esenciales, definidas por el texto tipo, el decimal m2 y los enteros dormitorios y banos. Su comportamiento público se limita a un constructor completo que inicializa el filtro de consulta con los datos capturados en el formulario visual y un conjunto de métodos de lectura getter para cada atributo, manteniendo así la inmutabilidad de la consulta durante la ejecución del proceso analítico.
+
+### Paquete `negocio`
+
+La clase `RegresionLineal` encapsula la lógica matemática y algorítmica subyacente del motor predictivo inteligente del sistema. Mantiene de forma privada los coeficientes numéricos deterministas del modelo matemático multivariable, representados por las variables de doble precisión beta0 para el intercepto base, betaM2 para el factor de área, betaDormitorios para la incidencia de habitaciones y betaBanos para el impacto de los servicios sanitarios. Su interfaz pública ofrece un constructor encargado de inicializar la estructura predictiva y el método público setCoeficientesMultiples, concebido para inyectar o actualizar dinámicamente dichos parámetros desde fuentes de entrenamiento externas. Asimismo, expone el método funcional predecirPrecio, el cual recibe un objeto de tipo PropiedadesFiltro y ejecuta de forma aislada la ecuación matemática para devolver la tasación automatizada estimada. La incorporación de este análisis predictivo en la capa de negocio responde a la necesidad de aislar las reglas operacionales de la lógica pura del dominio científico @evans2004.
+
+La clase `InmobiliariaNegocio` actúa como el controlador central y núcleo operativo del backend. Administra las colecciones en memoria dinámica mediante un atributo privado estructurado como una lista de objetos de tipo Propiedad, que opera como una base de datos relacional interna, además de poseer un enlace directo a una instancia privada de la clase RegresionLineal. Entre sus operaciones privadas, implementa el método cargarDatosDesdeCSV para el parseo masivo y robusto del archivo físico mediante expresiones regulares que discriminan comillas y comas textuales, junto al método generarDatosRespaldo que actúa como un mecanismo seguro de tolerancia a fallos ante la ausencia física del origen de datos, cumpliendo con los criterios de robustez y control de excepciones estipulados por @fowler2018 para arquitecturas empresariales. En su espectro público, el constructor automatiza el arranque y sincronización del almacenamiento, exponiendo los métodos getter hacia sus colecciones y el método principal simularTasacionYRecomendar; este último calcula el valor predictivo con base en un filtro recibido, examina la colección histórica completa y retorna una sublista depurada con las propiedades físicas reales que orbitan en el margen comercial óptimo del quince por ciento.
+
+### Paquete `interfaz`
+
+La clase `VentanaPrincipal`, la cual extiende formalmente por herencia la clase JFrame de la biblioteca Swing de Java, constituye la capa visual de presentación orientada a gestionar la interacción directa con el usuario final. Mantiene de forma privada una referencia de control hacia la capa lógica mediante una instancia de InmobiliariaNegocio, junto con la declaración de todos sus componentes gráficos interactivos de control como botones, tablas de datos, selectores y campos de texto validados. Su comportamiento operativo se distribuye internamente a través de su constructor que inicializa la interfaz de escritorio y enlaza los escuchas de eventos. El diseño interno se apoya en métodos privados especializados, donde inicializarComponentes configura la estética y distribución del panel, registrarEventos gestiona los ActionListeners que capturan los clicks y comandos del usuario, y refrescarTablaGlobal se encarga de vaciar e inyectar dinámicamente los registros de datos procesados por el controlador en las JTable visibles. De esta forma, el sistema sigue estrictamente la separación de la vista y la lógica funcional, un principio imperativo discutido ampliamente por Sommerville (2019) para evitar interfaces monolíticas de difícil mantenimiento.
+
+## 5.2 Guía para Diseñar las Relaciones en el Diagrama UML
+
+Para la correcta diagramación del modelo estructural del sistema, la vinculación entre los componentes descritos debe realizarse utilizando de forma rigurosa tres tipos de relaciones normalizadas por el estándar de la industria (Miles y Hamilton, 2006).
+
+La relación de Herencia se representa mediante una línea continua que finaliza en una punta de flecha con un triángulo cerrado y vacío, la cual debe partir desde la clase VentanaPrincipal y apuntar hacia la clase genérica JFrame del lenguaje Java, denotando una especialización de interfaz gráfica.
+
+Las relaciones de Asociación Simple indican dependencias estructurales a largo plazo y se trazan con líneas continuas que incorporan la respectiva multiplicidad de los extremos (Larman, 2005). Desde InmobiliariaNegocio hacia la clase Propiedad se extiende una línea con multiplicidad de uno a muchos, indicando que el controlador del negocio gobierna una colección indefinida de entidades inmobiliarias. Del mismo modo, InmobiliariaNegocio sostiene una asociación simple de uno a uno con la clase RegresionLineal al albergar de forma permanente el motor matemático. El flujo visual se consolida uniendo la clase VentanaPrincipal con InmobiliariaNegocio mediante una línea continua de uno a uno, estableciendo que la vista posee un canal directo de comunicación con las reglas de negocio.
+
+Las relaciones de Dependencia o Uso representan interacciones temporales y se configuran gráficamente a través de líneas entrecortadas con una flecha abierta en la punta que señala al elemento utilizado. En este modelo, la clase RegresionLineal posee una relación de dependencia hacia PropiedadesFiltro dado que requiere este objeto como un parámetro transitorio en sus métodos de cálculo. De manera análoga, la clase InmobiliariaNegocio depende de PropiedadesFiltro para ejecutar sus algoritmos de recomendación en base al presupuesto del cliente. Finalmente, la clase VentanaPrincipal establece una dependencia directa con PropiedadesFiltro al ser la responsable de instanciar y empaquetar temporalmente este objeto con los datos del formulario antes de despacharlo hacia las capas lógicas del backend.
+
+\begin{figure}[htbp]
+    \centering % Centra la imagen en la página
+    \includegraphics[width=1\linewidth]{Diagrama UML.png} 
+    \caption{Diagrama UML}
+    \label{fig:mi_imagen} % Etiqueta para hacer referencias cruzadas en el texto
+\end{figure}
+
+# 6 Estructura (árbol) de la solución informática en el IDE
+
+La organización física y lógica del código fuente dentro del Entorno de Desarrollo Integrado Apache NetBeans refleja fielmente la implementación práctica del patrón de arquitectura en capas diseñado para la aplicación. El proyecto, titulado formalmente `ProyectoIntegradorP2`, se ha estructurado a partir de una raíz principal que segmenta de manera limpia los componentes del entorno, las bibliotecas de ejecución, los recursos de persistencia externa y el código fuente ejecutable, garantizando la mantenibilidad del software a largo plazo.
+
+El núcleo de la aplicación se localiza dentro del directorio de paquetes fuente primario, el cual se encuentra subdividido en tres paquetes lógicos claramente diferenciados para cumplir con el principio de separación de responsabilidades. En primer lugar, el paquete denominado `modelo` alberga las clases estructurales `Propiedad.java` y `PropiedadesFiltro.java`, que definen las entidades de datos del sector inmobiliario. Seguido a este, el paquete `negocio` centraliza el motor analítico del sistema mediante las clases `InmobiliariaNegocio.java` y `RegresionLineal.java`, encargadas de procesar las reglas de cálculo y las predicciones matemáticas. Por último, el paquete `interfaz` contiene la clase `VentanaPrincipal.java`, que gestiona la capa de presentación visual construida con los componentes gráficos de la biblioteca Swing de Java.
+
+Adicionalmente, la arquitectura del proyecto en el IDE incorpora directorios independientes y dependencias globales para la ejecución del sistema. Esto incluye la sección de librerías del JDK, el archivo automatizado de construcción, las configuraciones del entorno y, de manera crucial, la carpeta de almacenamiento de datos en la raíz, permitiendo que el archivo de texto indexado sea localizado mediante rutas relativas por los controladores lógicos del backend.
+
+A continuación, se detalla la jerarquía y disposición exacta de los archivos dentro del espacio de trabajo del IDE:
+
+\begin{figure}[htbp]
+    \centering % Centra la imagen en la página
+    \includegraphics[width=1\linewidth]{estructura.png} 
+    \caption{Estructura del proyecto}
+    \label{fig:mi_imagen} % Etiqueta para hacer referencias cruzadas en el texto
+\end{figure}
+
+Esta disposición modular en el árbol de la solución asegura una separación rigurosa de conceptos en el entorno de desarrollo. Al estar los archivos distribuidos de esta manera dentro de NetBeans, cualquier modificación en la interfaz gráfica dentro del paquete interfaz no altera las reglas de cálculo matemático codificadas en el paquete negocio, ni compromete la integridad estructural de las entidades del paquete modelo. Asimismo, la ubicación del archivo histórico de persistencia en una carpeta relativa externa garantiza la portabilidad de toda la solución informática al momento de ser ejecutada en diferentes estaciones de trabajo o durante la sustentación ante el tribunal evaluador.
+
+# 7. Instrucciones para la ejecución de la aplicación
+
+La puesta en marcha del sistema predictivo inmobiliario requiere el cumplimiento de directrices técnicas específicas que aseguren la correcta inicialización de sus componentes y la vinculación idónea con las fuentes de persistencia externa. El despliegue abarca desde la preparación de la infraestructura base del sistema operativo hasta la carga y ejecución formal del código fuente dentro del entorno de desarrollo
+
+## 7.1 Requisitos del Sistema
+
+Para garantizar un rendimiento óptimo y la correcta renderización de la interfaz gráfica basada en la biblioteca Swing, la estación de trabajo debe contar con una serie de especificaciones técnicas elementales. En el plano del software, es imprescindible disponer del Entorno de Ejecución de Java (JRE) o, preferiblemente, del Kit de Desarrollo de Java (JDK) en su versión 17 o superior, lo cual asegura la compatibilidad con las estructuras de colecciones modernas y las expresiones regulares utilizadas en el backend. Asimismo, se requiere un sistema operativo compatible con entornos de escritorio concurrentes, tales como Microsoft Windows 10 o superior, GNU/Linux con servidor gráfico activo o macOS. Respecto a los componentes físicos o de hardware, la computadora debe poseer un procesador con arquitectura de sesenta y cuatro bits a una frecuencia mínima de dos gigahercios, una memoria RAM disponible de al menos cuatro gigabytes libres para evitar latencias en el procesamiento de colecciones en memoria, y un espacio en disco duro de cien megabytes para el almacenamiento del código compilado y el archivo histórico indexado.
+
+## 7.2 Pasos para Abrir el Proyecto en el IDE
+
+La importación de la solución informática dentro del Entorno de Desarrollo Integrado IntelliJ IDEA se realiza mediante un procedimiento estandarizado que preserva la integridad de los metadatos y las dependencias del proyecto. Inicialmente, el usuario debe descargar o clonar el repositorio que contiene la carpeta raíz denominada `ProyectoIntegradorP2` y ubicarla en un directorio accesible del disco local. Posteriormente, se procede a iniciar la aplicación de IntelliJ IDEA; una vez desplegada la ventana de bienvenida, se debe seleccionar la opción de apertura o importación de proyectos localizada en la barra de herramientas superior o mediante el botón dedicado del asistente de inicio. En la ventana de navegación emergente, el desarrollador debe buscar la ruta física de la carpeta raíz, la cual será reconocida automáticamente por el IDE. Al confirmar la selección, el entorno ofrecerá la opción de abrir el proyecto confiando en el origen del código fuente. Tras esta validación, IntelliJ IDEA indexará de manera jerárquica la estructura modular en su explorador de proyectos, configurando automáticamente el SDK de Java seleccionado y habilitando las herramientas avanzadas de edición y compilación.
+
+## 7.3 Cómo Iniciar y Ejecutar la Aplicación
+
+Una vez que la solución informática se encuentra completamente cargada y sincronizada dentro de IntelliJ IDEA, el proceso de inicialización del software requiere una secuencia ordenada de acciones para asegurar la correcta vinculación con el archivo plano de datos de entrada. En primer lugar, es un requisito crítico verificar de forma manual que el archivo de texto indexado denominado `datos_propiedades_ecuador.csv` se encuentre físicamente almacenado dentro de la carpeta externa `data` en la raíz del proyecto, dado que los controladores lógicos del backend emplean rutas relativas para el parseo masivo de la información histórica. Cumplida esta verificación de persistencia, el operador debe dirigirse a la vista de herramientas de proyectos de IntelliJ, expandir el árbol jerárquico del directorio `src` hasta localizar el paquete denominado `interfaz` y abrir la clase principal `VentanaPrincipal.java`. La ejecución formal del programa se realiza haciendo clic derecho sobre el editor de código de la ventana gráfica o sobre su archivo en la barra lateral y seleccionando el comando de ejecución dedicado, reconocible por un icono verde de reproducción, o bien presionando la combinación de teclas de acceso directo establecida por el entorno. Este comando compilará los módulos en tiempo de ejecución de manera optimizada, instanciará de forma segura el controlador central del negocio y desplegará la interfaz de escritorio en pantalla, quedando el sistema completamente operativo para recibir las interacciones del usuario y renderizar los modelos matemáticos predictivos.
+
+# 8. CONCLUSIONES Y RECOMENDACIONES
+
+El desarrollo integral de este proyecto informático ha permitido materializar una solución tecnológica funcional que responde con precisión a las dinámicas complejas del mercado inmobiliario actual. A través de este proceso, el equipo de trabajo ha consolidado aprendizajes técnicos significativos, enfrentado desafíos inherentes al diseño de software y delineado la ruta de evolución para futuras iteraciones del sistema.
+
+## 8.1 Conclusiones
+
+La culminación exitosa del sistema predictivo inmobiliario aporta un conjunto de conclusiones valiosas respecto a la ingeniería de software y la aplicación práctica de la programación orientada a objetos. En primer lugar, los aprendizajes obtenidos demuestran que la implementación rigurosa de una arquitectura en capas independientes mitiga significativamente el acoplamiento y maximiza la cohesión, permitiendo que modificaciones estéticas en la interfaz gráfica no interfieran de ninguna manera con los modelos analíticos o algorítmicos del backend. Asimismo, el proyecto sirvió para validar la utilidad de integrar motores matemáticos tradicionales, como la regresión lineal multivariable, con componentes visuales de escritorio para transformar bases de datos planas en herramientas interactivas de toma de decisiones comerciales.
+
+Por otra parte, el proceso de desarrollo no estuvo exento de dificultades operativas, concentrándose los principales retos en la fase de persistencia y parsing de datos. El manejo técnico de archivos externos en formato CSV requirió el diseño de expresiones regulares complejas para discriminar de forma robusta las comas y comillas incrustadas de manera textual dentro de las descripciones de los sectores geográficos, superando así los fallos iniciales de desalineación en las lecturas de memoria. De igual modo, el aseguramiento de la calidad exigió un esfuerzo exhaustivo de depuración para establecer mecanismos de tolerancia a fallos y control de excepciones numéricas, evitando que el ingreso fortuito de campos vacíos o valores corruptos provocara el colapso de la aplicación en los entornos de producción simulados.
+
+Finalmente, se identificaron áreas críticas de mejora inmediata dentro del software actual para potenciar su flexibilidad. La optimización del sistema podría enfocarse en la reestructuración del almacenamiento interno de datos, reemplazando la lista estática en memoria por un patrón de diseño que permita actualizaciones concurrentes sin necesidad de reiniciar la sesión del usuario. De igual manera, es factible refinar los criterios del algoritmo de recomendación acotando los márgenes del quince por ciento comercial mediante filtros estadísticos avanzados basados en la desviación estándar por sector, lo cual dotaría a los resultados reales de un nivel de precisión significativamente superior y más adaptado a la realidad económica local.
+
+## 8.2 Recomendaciones
+
+Con miras a garantizar la escalabilidad y la competitividad tecnológica del sistema en el mediano y largo plazo, se formulan recomendaciones específicas para orientar las futuras expansiones de la aplicación informática. Se sugiere de manera prioritaria migrar el mecanismo de persistencia basado en archivos planos temporales hacia un sistema de gestión de bases de datos relacionales o no relacionales robusto, lo cual erradicaría los riesgos de corrupción de datos físicos y permitiría la manipulación de millones de registros inmobiliarios en tiempo real con tiempos de respuesta óptimos.
+
+Adicionalmente, se recomienda expandir las capacidades del motor predictivo inteligente mediante la integración de bibliotecas analíticas avanzadas que permitan transicionar de una regresión lineal determinista hacia modelos de aprendizaje automático basados en árboles de decisión o redes neuronales artificiales, logrando así asimilar variables no lineales como la plusvalía histórica, la cercanía a servicios públicos y las fluctuaciones inflacionarias del entorno. Por último, en el plano de la capa de presentación, es aconsejable evolucionar la interfaz gráfica de escritorio de Swing hacia un entorno web moderno o una aplicación móvil nativa, facilitando el acceso multiplataforma para los usuarios y permitiendo la incorporación de APIs de mapas interactivos para geolocalizar visualmente las propiedades recomendadas.
+
+# Bibliografia
